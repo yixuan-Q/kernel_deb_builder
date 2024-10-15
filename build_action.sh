@@ -19,7 +19,7 @@ TARBALL_URL=$(wget -qO- https://www.kernel.org/ | grep -oP '(?<=href=")[^"]*linu
 # 获取版本号
 VERSION=$(echo "$TARBALL_URL" | grep -oP 'linux-(\d+\.\d+-\w+)\.tar\.gz' | sed 's/linux-//;s/\.tar\.gz//')
 wget "${TARBALL_URL}"
-tar -zxvf "linux-${VERSION}.tar.xz"
+tar -zxvf "linux-${VERSION}.tar.gz"
 cd "linux-${VERSION}" || exit
 
 # copy config file
