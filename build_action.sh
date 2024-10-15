@@ -16,7 +16,8 @@ cd "${GITHUB_WORKSPACE}" || exit
 # download kernel source
 # 下载最新的 Mainline 内核源代码
 TARBALL_URL=$(wget -qO- https://www.kernel.org/ | grep -oP '(?<=href=")[^"]*linux-.*?\.tar\.gz' | head -1)
-VERSION=$($(TARBALL_URL) | grep -oP 'linux-(\d+\.\d+-\w+)\.tar\.gz' | sed 's/linux-//;s/\.tar\.gz//')
+# 获取版本号
+VERSION=$(echo "$TARBALL_URL" | grep -oP 'linux-(\d+\.\d+-\w+)\.tar\.gz' | sed 's/linux-//;s/\.tar\.gz//')
 wget "${TARBALL_URL}"
 tar -xf "linux-${VERSION}.tar.xz"
 cd "linux-${VERSION}" || exit
