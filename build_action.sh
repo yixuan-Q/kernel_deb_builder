@@ -14,9 +14,11 @@ apt build-dep -y linux
 cd "${GITHUB_WORKSPACE}" || exit
 
 # download kernel source
-wget http://www.kernel.org/pub/linux/kernel/v5.x/linux-"$VERSION".tar.xz
-tar -xf linux-"$VERSION".tar.xz
-cd linux-"$VERSION" || exit
+# 下载最新的 Mainline 内核源代码
+VERSION=$(wget -qO- https://www.kernel.org/ | grep -oP 'mainline: <strong>\K[^\s]+' | head -1)
+wget "https://www.kernel.org/pub/linux/kernel/v6.x/linux-${VERSION}.tar.xz"
+tar -xf "linux-${VERSION}.tar.xz"
+cd "linux-${VERSION}" || exit
 
 # copy config file
 cp ../config .config
